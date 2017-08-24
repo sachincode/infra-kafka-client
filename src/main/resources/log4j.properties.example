@@ -1,0 +1,26 @@
+log4j.rootLogger=INFO,DAILY
+log4j.addivity.org.apache=true
+log.dir=./logs
+log.file=infra-kafka-client.log
+### 
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.Threshold=DEBUG
+log4j.appender.CONSOLE.Target=System.out
+log4j.appender.CONSOLE.Encoding=UTF-8
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss.SSS}-[%t-%-5p]%c%x:%m%n
+
+log4j.appender.FILE=org.apache.log4j.RollingFileAppender
+log4j.appender.FILE.MaxFileSize=200MB
+log4j.appender.FILE.MaxBackupIndex=10
+log4j.appender.FILE.File=${log.dir}/${log.file}
+log4j.appender.FILE.Encoding=UTF-8
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss.SSS}-[%t-%-5p]%c%x:%m%n
+
+log4j.appender.DAILY=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.DAILY.File=${log.dir}/${log.file}
+log4j.appender.DAILY.DatePattern=.yyyy-MM-dd
+log4j.appender.DAILY.layout=org.apache.log4j.PatternLayout
+log4j.appender.DAILY.MaxBackupIndex=14
+log4j.appender.DAILY.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss.SSS}-[%t-%-5p]%c%x:%m%n
