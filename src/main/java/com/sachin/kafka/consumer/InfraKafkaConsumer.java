@@ -148,7 +148,12 @@ public class InfraKafkaConsumer {
         //
         boolean success = false;
         while (!success) {
-            this.internalConsumer = new InternalConsumer(topic, group);
+            if (this.internalConsumer == null) {
+                this.internalConsumer = new InternalConsumer(topic, group);
+            } else {
+                this.internalConsumer.close();
+            }
+
             try {
                 this.it = this.internalConsumer.initAndGetStreamIterator();
                 success = true;
@@ -296,14 +301,20 @@ public class InfraKafkaConsumer {
          * 关闭链接
          */
         public void close() {
-            connector.shutdown();
+            if (connector != null) {
+                connector.shutdown();
+            }
+            connector = null;
+            it0 = null;
         }
 
         /**
          * 提交connector连接的所有partitions的偏移量
          */
         public void commitOffsets() {
-            connector.commitOffsets();
+            if (connector != null) {
+                connector.commitOffsets();
+            }
         }
     }
 
